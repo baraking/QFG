@@ -555,7 +555,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1228483508}
   offset: {x: 1, y: -1, z: 1}
-  pitch: 2
+  characterHeight: 2
+  zoomSpeed: 5
+  zoomPositionRange: {x: 5, y: 10}
+  rotationSpeed: 100
 --- !u!1 &1228483503
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +571,6 @@ GameObject:
   - component: {fileID: 1228483506}
   - component: {fileID: 1228483509}
   - component: {fileID: 1228483505}
-  - component: {fileID: 1228483504}
   m_Layer: 0
   m_Name: HeroCharacter
   m_TagString: Untagged
@@ -576,22 +578,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!54 &1228483504
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228483503}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!195 &1228483505
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -611,7 +597,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1228483506
@@ -638,7 +624,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228483503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.11, y: 1.08, z: 1.04}
+  m_LocalPosition: {x: 1.11, y: 1, z: 1.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 422265884}

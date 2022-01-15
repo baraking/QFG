@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//maybe change the offset's y value instead of the currentZoom
 public class CameraController : MonoBehaviour
 {
     public Transform target;
 
     public Vector3 offset;
-    public float characterHeight = 2f;
+    public float characterHeight = Constants.CharacterHeight;
 
     public float zoomSpeed = 5f;
     public Vector2 zoomPositionRange = new Vector2(5, 10);
