@@ -26,6 +26,10 @@ public class MouseController : MonoBehaviour
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+
+            //SwitchCase for current action.
+
+            //Move
             if(Physics.Raycast(ray,out hit,100,movementMask))
             {
                 Debug.Log("Clicked on " + hit.collider.gameObject.name);
