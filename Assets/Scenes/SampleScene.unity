@@ -612,6 +612,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9704fb974765c64ba33816e24a3e418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curHeroAction: 0
+  curHeroActionIndex: 0
+  heroActionIcons:
+  - {fileID: 2800000, guid: d451852272df0954185e2ad6051d1249, type: 3}
+  - {fileID: 2800000, guid: 1a6f474588143e643911c5c5a42a9438, type: 3}
+  - {fileID: 2800000, guid: c335b04b24ee3a0448e5491b75f1d48a, type: 3}
+  - {fileID: 2800000, guid: 43c0cc6374a86664a8fc142f8345189a, type: 3}
   movementMask:
     serializedVersion: 2
     m_Bits: 64
