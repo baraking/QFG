@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement))]
 public class MouseController : MonoBehaviour
 {
-    public enum HeroAction { Walk,LookAt,Grab,Speak/*,UseItem*/}
+    public enum HeroAction { Walk,LookAt,Grab,TalkTo/*,UseItem*/}
     public HeroAction curHeroAction;
     public int curHeroActionIndex;
     public Texture2D[] heroActionIcons;
@@ -44,19 +44,66 @@ public class MouseController : MonoBehaviour
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log("Clicked on " + hit.collider.gameObject.name);
+            }
 
             //SwitchCase for current action.
 
             //Move
-            if(Physics.Raycast(ray,out hit,100,movementMask))
+            if (curHeroAction == HeroAction.Walk)
             {
-                Debug.Log("Clicked on " + hit.collider.gameObject.name);
-
-                if (curHeroAction == HeroAction.Walk)
+                if (Physics.Raycast(ray, out hit, 100, movementMask))
                 {
+                    Debug.Log("Clicked on " + hit.collider.gameObject.name);
+
                     movement.WalkToPoint(hit.point);
                 }
             }
+            else if (curHeroAction == HeroAction.LookAt)
+            {
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.gameObject.GetComponent<Interactable>())
+                    {
+                        Debug.Log(hit.collider.gameObject.GetComponent<Interactable>().LookAtThis()[0]);
+                    }
+                    else if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                    {
+                        Debug.Log(hit.collider.gameObject.GetComponentInParent<Interactable>().LookAtThis()[0]);
+                    }
+                }
+            }
+            else if (curHeroAction == HeroAction.Grab)
+            {
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.gameObject.GetComponent<Interactable>())
+                    {
+                        Debug.Log(hit.collider.gameObject.GetComponent<Interactable>().GrabThis()[0]);
+                    }
+                    else if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                    {
+                        Debug.Log(hit.collider.gameObject.GetComponentInParent<Interactable>().GrabThis()[0]);
+                    }
+                }
+            }
+            else if (curHeroAction == HeroAction.TalkTo)
+            {
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.gameObject.GetComponent<Interactable>())
+                    {
+                        Debug.Log(hit.collider.gameObject.GetComponent<Interactable>().TalkToThis()[0]);
+                    }
+                    else if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                    {
+                        Debug.Log(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()[0]);
+                    }
+                }
+            }
+
         }
 
         if (Input.GetMouseButtonDown(1))

@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 821786864}
   - component: {fileID: 821786863}
   - component: {fileID: 821786862}
+  - component: {fileID: 821786867}
   m_Layer: 0
   m_Name: DynamicObstacle
   m_TagString: Untagged
@@ -413,7 +414,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 118a34aded66d214abc386c3de73552b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -457,6 +458,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &821786867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821786861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0730423037f166d478203b068b1f707c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAt:
+  - This is a blue house
+  grab:
+  - The door seems to be out of reach
+  talkTo: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +589,7 @@ GameObject:
   - component: {fileID: 1228483506}
   - component: {fileID: 1228483509}
   - component: {fileID: 1228483505}
+  - component: {fileID: 1228483504}
   m_Layer: 0
   m_Name: HeroCharacter
   m_TagString: Untagged
@@ -578,6 +597,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1228483504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228483503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0730423037f166d478203b068b1f707c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAt:
+  - You are as handsome as ever.
+  grab:
+  - You check that everything is in place.
+  talkTo:
+  - Talking to yourself now? Really?
 --- !u!195 &1228483505
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -662,6 +699,7 @@ GameObject:
   - component: {fileID: 1584220158}
   - component: {fileID: 1584220157}
   - component: {fileID: 1584220156}
+  - component: {fileID: 1584220160}
   m_Layer: 0
   m_Name: StaticObstacle
   m_TagString: Untagged
@@ -702,7 +740,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1414b6c447edb8d4e978c7167e2f4036, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -746,6 +784,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1584220160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584220155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0730423037f166d478203b068b1f707c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAt:
+  - This is a green house
+  grab: []
+  talkTo: []
 --- !u!1 &1771328962
 GameObject:
   m_ObjectHideFlags: 0
