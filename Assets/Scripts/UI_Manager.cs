@@ -44,10 +44,10 @@ public class UI_Manager : MonoBehaviour
         }
 
         CloseMessageBoard();
-        yield return new WaitForSecondsRealtime(Constants.conversationWaitTime);
+        yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
         OpenMessageBoard();
         messageBoard.SetNewText(newText);
-        yield return new WaitForSecondsRealtime(Constants.conversationWaitTime);
+        yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
     }
 
     public IEnumerator ContinueMessageOnMessageBoard()
@@ -55,7 +55,7 @@ public class UI_Manager : MonoBehaviour
         if (!isInCooldown)
         {
             isInCooldown = true;
-            yield return new WaitForSecondsRealtime(Constants.conversationWaitTime);
+            yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
             if (messageBoard.IsLastSentenceInText())
             {
                 messageBoard.ResetText();

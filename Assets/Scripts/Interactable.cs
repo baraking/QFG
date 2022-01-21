@@ -18,7 +18,7 @@ public class Interactable : MonoBehaviour
         else
         {
             List<string> ans = new List<string>();
-            ans.Add(Constants.defaultLookAtMessage);
+            ans.Add(Constants.DEFAULT_LOOK_AT_MESSAGE);
             return ans;
         }
     }
@@ -32,7 +32,7 @@ public class Interactable : MonoBehaviour
         else
         {
             List<string> ans = new List<string>();
-            ans.Add(Constants.defaultGrabMessage);
+            ans.Add(Constants.DEFAULT_GRAB_MESSAGE);
             return ans;
         }
     }
@@ -46,7 +46,7 @@ public class Interactable : MonoBehaviour
         else
         {
             List<string> ans = new List<string>();
-            ans.Add(Constants.defaultTalkToMessage);
+            ans.Add(Constants.DEFAULT_TALK_TO_MESSAGE);
             return ans;
         }
     }

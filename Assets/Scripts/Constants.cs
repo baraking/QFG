@@ -4,13 +4,15 @@ using UnityEngine;
 
 public static class Constants
 {
-    public static float CharacterHeight = 2f;
+    public static float CHARACTER_HEIGHT = 2f;
 
+    public static float INTERACTION_DISTANCE_LOOK_AT = 10f;
+    public static float INTERACTION_DISTANCE_GRAB = .5f;
+    public static float INTERACTION_DISTANCE_TALK_TO = 1f;
 
-    public static string defaultLookAtMessage = "You see nothing in particular";
-    public static string defaultGrabMessage = "You can not grab that";
-    public static string defaultTalkToMessage = "You get no response";
+    public static string DEFAULT_LOOK_AT_MESSAGE = "You see nothing in particular";
+    public static string DEFAULT_GRAB_MESSAGE = "You can not grab that";
+    public static string DEFAULT_TALK_TO_MESSAGE = "You get no response";
 
-
-    public static float conversationWaitTime = 0.5f;
+    public static float MESSAGE_BOARD_WAIT_TIME = 0.5f;
 }

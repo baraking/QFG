@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public Transform target;
 
     public Vector3 offset;
-    public float characterHeight = Constants.CharacterHeight;
+    public float characterHeight = Constants.CHARACTER_HEIGHT;
 
     public float zoomSpeed = 5f;
     public Vector2 zoomPositionRange = new Vector2(5, 10);
