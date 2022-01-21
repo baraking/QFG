@@ -39,76 +39,74 @@ public class MouseController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!UI_Manager.instance.isMessageBoardOpen)
         {
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Clicked on " + hit.collider.gameObject.name);
-            }
+                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-            //SwitchCase for current action.
-
-            //Move
-            if (curHeroAction == HeroAction.Walk)
-            {
-                if (Physics.Raycast(ray, out hit, 100, movementMask))
+                if (Physics.Raycast(ray, out hit))
                 {
                     Debug.Log("Clicked on " + hit.collider.gameObject.name);
+                }
 
-                    movement.WalkToPoint(hit.point);
+                //SwitchCase for current action.
+
+                //Move
+                if (curHeroAction == HeroAction.Walk)
+                {
+                    if (Physics.Raycast(ray, out hit, 100, movementMask))
+                    {
+                        Debug.Log("Clicked on " + hit.collider.gameObject.name);
+
+                        movement.WalkToPoint(hit.point);
+                    }
+                }
+                else if (curHeroAction == HeroAction.LookAt)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                        {
+                            StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().LookAtThis()));
+                        }
+                    }
+                }
+                else if (curHeroAction == HeroAction.Grab)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                        {
+                            StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().GrabThis()));
+                        }
+                    }
+                }
+                else if (curHeroAction == HeroAction.TalkTo)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                        {
+                            StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()));
+                        }
+                    }
                 }
             }
-            else if (curHeroAction == HeroAction.LookAt)
+            else if (Input.GetMouseButtonDown(1))
             {
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.gameObject.GetComponent<Interactable>())
-                    {
-                        Debug.Log(hit.collider.gameObject.GetComponent<Interactable>().LookAtThis()[0]);
-                    }
-                    else if (hit.collider.gameObject.GetComponentInParent<Interactable>())
-                    {
-                        Debug.Log(hit.collider.gameObject.GetComponentInParent<Interactable>().LookAtThis()[0]);
-                    }
-                }
-            }
-            else if (curHeroAction == HeroAction.Grab)
-            {
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.gameObject.GetComponent<Interactable>())
-                    {
-                        Debug.Log(hit.collider.gameObject.GetComponent<Interactable>().GrabThis()[0]);
-                    }
-                    else if (hit.collider.gameObject.GetComponentInParent<Interactable>())
-                    {
-                        Debug.Log(hit.collider.gameObject.GetComponentInParent<Interactable>().GrabThis()[0]);
-                    }
-                }
-            }
-            else if (curHeroAction == HeroAction.TalkTo)
-            {
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.gameObject.GetComponent<Interactable>())
-                    {
-                        Debug.Log(hit.collider.gameObject.GetComponent<Interactable>().TalkToThis()[0]);
-                    }
-                    else if (hit.collider.gameObject.GetComponentInParent<Interactable>())
-                    {
-                        Debug.Log(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()[0]);
-                    }
-                }
+                SetCurHeroAction(curHeroActionIndex + 1);
             }
 
         }
-
-        if (Input.GetMouseButtonDown(1))
+        else
         {
-            SetCurHeroAction(curHeroActionIndex + 1);
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartCoroutine(UI_Manager.instance.ContinueMessageOnMessageBoard());
+            }   
         }
+
     }
 }
