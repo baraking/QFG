@@ -75,6 +75,7 @@ public class MouseController : MonoBehaviour
                             }
                             else
                             {
+                                Debug.Log("I'm too far for that");
                                 movement.WalkToPoint(hit.point);
                             }
                         }
@@ -92,6 +93,7 @@ public class MouseController : MonoBehaviour
                             }
                             else
                             {
+                                Debug.Log("I'm too far for that");
                                 movement.WalkToPoint(hit.point);
                             }
                         }
@@ -109,6 +111,7 @@ public class MouseController : MonoBehaviour
                             }
                             else
                             {
+                                Debug.Log("I'm too far for that");
                                 movement.WalkToPoint(hit.point);
                             }
                         }
