@@ -627,6 +627,9 @@ MonoBehaviour:
   grab:
   - The door seems to be out of reach
   talkTo: []
+  lookAtDistance: 25
+  grabDistance: 3
+  talkToDistance: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,6 +885,9 @@ MonoBehaviour:
   - You check that everything is in place.
   talkTo:
   - Talking to yourself now? Really?
+  lookAtDistance: 0
+  grabDistance: 0
+  talkToDistance: 0
 --- !u!195 &1228483505
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1275,6 +1281,9 @@ MonoBehaviour:
   - This is a green house
   grab: []
   talkTo: []
+  lookAtDistance: 25
+  grabDistance: 3
+  talkToDistance: 1
 --- !u!1 &1771328962
 GameObject:
   m_ObjectHideFlags: 0

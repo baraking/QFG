@@ -69,7 +69,14 @@ public class MouseController : MonoBehaviour
                     {
                         if (hit.collider.gameObject.GetComponentInParent<Interactable>())
                         {
-                            StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().LookAtThis()));
+                            if(Vector3.Distance(transform.position,hit.collider.transform.position) <= hit.collider.gameObject.GetComponentInParent<Interactable>().lookAtDistance)
+                            {
+                                StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().LookAtThis()));
+                            }
+                            else
+                            {
+                                movement.WalkToPoint(hit.point);
+                            }
                         }
                     }
                 }
@@ -79,7 +86,14 @@ public class MouseController : MonoBehaviour
                     {
                         if (hit.collider.gameObject.GetComponentInParent<Interactable>())
                         {
-                            StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().GrabThis()));
+                            if (Vector3.Distance(transform.position, hit.collider.transform.position) <= hit.collider.gameObject.GetComponentInParent<Interactable>().grabDistance)
+                            {
+                                StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().GrabThis()));
+                            }
+                            else
+                            {
+                                movement.WalkToPoint(hit.point);
+                            }
                         }
                     }
                 }
@@ -89,7 +103,14 @@ public class MouseController : MonoBehaviour
                     {
                         if (hit.collider.gameObject.GetComponentInParent<Interactable>())
                         {
-                            StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()));
+                            if (Vector3.Distance(transform.position, hit.collider.transform.position) <= hit.collider.gameObject.GetComponentInParent<Interactable>().talkToDistance)
+                            {
+                                StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()));
+                            }
+                            else
+                            {
+                                movement.WalkToPoint(hit.point);
+                            }
                         }
                     }
                 }
