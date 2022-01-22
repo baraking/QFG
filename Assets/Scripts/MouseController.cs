@@ -69,7 +69,7 @@ public class MouseController : MonoBehaviour
                     {
                         if (hit.collider.gameObject.GetComponentInParent<Interactable>())
                         {
-                            if(Vector3.Distance(transform.position,hit.collider.transform.position) <= hit.collider.gameObject.GetComponentInParent<Interactable>().lookAtDistance)
+                            if(Vector3.Distance(transform.position, hit.collider.ClosestPointOnBounds(transform.position)) <= hit.collider.gameObject.GetComponentInParent<Interactable>().lookAtDistance)
                             {
                                 StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().LookAtThis()));
                             }
@@ -86,7 +86,7 @@ public class MouseController : MonoBehaviour
                     {
                         if (hit.collider.gameObject.GetComponentInParent<Interactable>())
                         {
-                            if (Vector3.Distance(transform.position, hit.collider.transform.position) <= hit.collider.gameObject.GetComponentInParent<Interactable>().grabDistance)
+                            if (Vector3.Distance(transform.position, hit.collider.ClosestPointOnBounds(transform.position)) <= hit.collider.gameObject.GetComponentInParent<Interactable>().grabDistance)
                             {
                                 StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().GrabThis()));
                             }
@@ -103,7 +103,7 @@ public class MouseController : MonoBehaviour
                     {
                         if (hit.collider.gameObject.GetComponentInParent<Interactable>())
                         {
-                            if (Vector3.Distance(transform.position, hit.collider.transform.position) <= hit.collider.gameObject.GetComponentInParent<Interactable>().talkToDistance)
+                            if (Vector3.Distance(transform.position, hit.collider.ClosestPointOnBounds(transform.position)) <= hit.collider.gameObject.GetComponentInParent<Interactable>().talkToDistance)
                             {
                                 StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()));
                             }
