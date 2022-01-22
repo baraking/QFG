@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] public List<string> lookAt;
     [SerializeField] public List<string> grab;
-    [SerializeField] public List<string> talkTo;
+    [SerializeField] public DialougeTree talkTo;
 
     public float lookAtDistance;
     public float grabDistance;
@@ -61,9 +61,9 @@ public class Interactable : MonoBehaviour
 
     public List<string> TalkToThis()
     {
-        if (talkTo != null && talkTo.Count>0)
+        if (talkTo != null && talkTo.dialougeContent.Count> 0)
         {
-            return talkTo;
+            return talkTo.dialougeContent;
         }
         else
         {
