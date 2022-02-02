@@ -102,9 +102,26 @@ public class UI_Manager : MonoBehaviour
                 //check if has dialouge
                 if (curDialougeTree != null)
                 {
-                    print("Display dialouge options");
                     CloseMessageBoard();
                     OpenDialougeOptions();
+                    
+                    foreach(DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
+                    {
+                        GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
+                        newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+                        newDialougeTreeOption.GetComponent<DialougeOptionButton>().Init(dialougeTree);
+                    }
+
+                    if (curDialougeTree.parentNode == null)
+                    {
+                        //add Exit
+                        print("Add Exit");
+                    }
+                    else
+                    {
+                        //add Return
+                        print("Add Return");
+                    }
                 }
                 //if does
                 //open dialougeOptions
