@@ -11,6 +11,8 @@ public class UI_Manager : MonoBehaviour
     public DialougeOptions dialougeOptions;
     public GameObject dialougeOptionPrefab;
 
+    public DialougeTree curDialougeTree;
+
     public bool isMessageBoardOpen;
     public bool isDialougeOptionsOpen;
 
@@ -26,6 +28,11 @@ public class UI_Manager : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    public bool IsUIManagerActive()
+    {
+        return (isMessageBoardOpen || isDialougeOptionsOpen);
     }
 
     public void OpenMessageBoard()
@@ -54,7 +61,7 @@ public class UI_Manager : MonoBehaviour
 
     public IEnumerator SetMessageOnMessageBoard(List<string> newText)
     {
-        foreach(string line in newText)
+        foreach (string line in newText)
         {
             Debug.Log(line);
         }
@@ -63,6 +70,21 @@ public class UI_Manager : MonoBehaviour
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
         OpenMessageBoard();
         messageBoard.SetNewText(newText);
+        yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+    }
+
+    public IEnumerator SetMessageOnMessageBoard(DialougeTree dialougeTree)
+    {
+        curDialougeTree = dialougeTree;
+        foreach (string line in dialougeTree.dialougeContent)
+        {
+            Debug.Log(line);
+        }
+
+        CloseMessageBoard();
+        yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+        OpenMessageBoard();
+        messageBoard.SetNewText(dialougeTree.dialougeContent);
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
     }
 
@@ -78,10 +100,16 @@ public class UI_Manager : MonoBehaviour
                 CloseMessageBoard();
 
                 //check if has dialouge
+                if (curDialougeTree != null)
+                {
+                    print("Display dialouge options");
+                    CloseMessageBoard();
+                    OpenDialougeOptions();
+                }
                 //if does
                 //open dialougeOptions
                 //for each dialougeTree in the list add dialgoueTitle's text as each button
-                //fille with all options
+                //fill with all options
                 //if has parent add return, else add exit
             }
             else

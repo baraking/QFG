@@ -59,17 +59,15 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public List<string> TalkToThis()
+    public DialougeTree TalkToThis()
     {
         if (talkTo != null && talkTo.dialougeContent.Count> 0)
         {
-            return talkTo.dialougeContent;
+            return talkTo;
         }
         else
         {
-            List<string> ans = new List<string>();
-            ans.Add(Constants.DEFAULT_TALK_TO_MESSAGE);
-            return ans;
+            return null;
         }
     }
 

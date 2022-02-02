@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class MouseController : MonoBehaviour
@@ -39,7 +40,7 @@ public class MouseController : MonoBehaviour
 
     private void Update()
     {
-        if (!UI_Manager.instance.isMessageBoardOpen)
+        if (!EventSystem.current.IsPointerOverGameObject() && !UI_Manager.instance.IsUIManagerActive())
         {
             if (Input.GetMouseButtonDown(0))
             {
