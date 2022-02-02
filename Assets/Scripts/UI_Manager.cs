@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
 
     public MessageBoard messageBoard;
     public DialougeOptions dialougeOptions;
+    public GameObject dialougeOptionPrefab;
 
     public bool isMessageBoardOpen;
     public bool isDialougeOptionsOpen;
