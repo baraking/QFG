@@ -66,6 +66,11 @@ public class UI_Manager : MonoBehaviour
             Debug.Log(line);
         }
 
+        if (isDialougeOptionsOpen)
+        {
+            CloseDialougeOptions();
+        }
+        
         CloseMessageBoard();
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
         OpenMessageBoard();
@@ -81,6 +86,11 @@ public class UI_Manager : MonoBehaviour
             Debug.Log(line);
         }
 
+        if (isDialougeOptionsOpen)
+        {
+            CloseDialougeOptions();
+        }
+
         CloseMessageBoard();
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
         OpenMessageBoard();
@@ -93,7 +103,8 @@ public class UI_Manager : MonoBehaviour
         if (!isInCooldown)
         {
             isInCooldown = true;
-            yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+            yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);    
+
             if (messageBoard.IsLastSentenceInText())
             {
                 messageBoard.ResetText();

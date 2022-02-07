@@ -13,4 +13,20 @@ public class DialougeOptionButton : MonoBehaviour
         myDialougeTree = newDialougeTree;
         myDisplayedText.text = myDialougeTree.dialgoueTitle;
     }
+
+    public void TreeButton()
+    {
+        //UI_Manager.instance.OpenMessageBoard();
+        StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(myDialougeTree));
+    }
+
+    public void ReturnButton()
+    {
+
+    }
+
+    public void ExitButton()
+    {
+
+    }
 }
