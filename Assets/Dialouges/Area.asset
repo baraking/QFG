@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0039e864cfbdf4286963226411ce9f, type: 3}
+  m_Name: Area
+  m_EditorClassIdentifier: 
+  dialgoueTitle: Area
+  dialougeContent:
+  - In town it's preety safe within the walls.
+  - Outside, I would stick to the roads and travel at day time.
+  dialougeOptions:
+  - {fileID: 11400000, guid: 58e6466e4ed952b4fb346ff2137880e8, type: 2}
+  - {fileID: 11400000, guid: b1b2a399f006b4c418437ecb277a5dac, type: 2}
+  parentNode: {fileID: 11400000, guid: 6dbd7492b75c52b4ba082e8cf541d123, type: 2}

@@ -7,8 +7,8 @@ public class MessageBoard : MonoBehaviour
 {
     public TMP_Text currentTextDisplayer;
 
-    List<string> currentText;
-    int currentTextIndex;
+    [SerializeField] List<string> currentText;
+    [SerializeField] int currentTextIndex;
 
     public void SetNewText(List<string> newText)
     {
@@ -32,6 +32,11 @@ public class MessageBoard : MonoBehaviour
     public void SetDisplayedText(string newText)
     {
         currentTextDisplayer.text = newText;
+    }
+
+    public bool HasText()
+    {
+        return currentText == null;
     }
 
     public bool IsLastSentenceInText()

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0039e864cfbdf4286963226411ce9f, type: 3}
+  m_Name: GuardInitial
+  m_EditorClassIdentifier: 
+  dialgoueTitle: 
+  dialougeContent:
+  - Welcome to town.
+  - You seem to be from far. The rules are simple I guess, be nice and pay your taxes.
+    Besides that try to stay alive and productive.
+  dialougeOptions:
+  - {fileID: 11400000, guid: 9a5701f6dea94374386240239bb3ac01, type: 2}
+  parentNode: {fileID: 0}

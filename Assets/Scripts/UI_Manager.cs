@@ -6,9 +6,17 @@ public class UI_Manager : MonoBehaviour
 {
 
     public static UI_Manager instance;
+
     public MessageBoard messageBoard;
+    public DialougeOptions dialougeOptions;
+    public GameObject dialougeOptionPrefab;
+    public GameObject returnDialougeOptionPrefab;
+    public GameObject exitDialougeOptionPrefab;
+
+    public DialougeTree curDialougeTree;
 
     public bool isMessageBoardOpen;
+    public bool isDialougeOptionsOpen;
 
     bool isInCooldown;
 
@@ -24,6 +32,11 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    public bool IsUIManagerActive()
+    {
+        return (isMessageBoardOpen || isDialougeOptionsOpen);
+    }
+
     public void OpenMessageBoard()
     {
         messageBoard.gameObject.SetActive(true);
@@ -36,18 +49,107 @@ public class UI_Manager : MonoBehaviour
         isMessageBoardOpen = false;
     }
 
+    public void OpenDialougeOptions()
+    {
+        dialougeOptions.gameObject.SetActive(true);
+        isDialougeOptionsOpen = true;
+    }
+
+    public void CloseDialougeOptions()
+    {
+        dialougeOptions.gameObject.SetActive(false);
+        isDialougeOptionsOpen = false;
+    }
+
+    public void CloseAndResetAllUIElements()
+    {
+        messageBoard.ResetText();
+        CloseMessageBoard();
+        dialougeOptions.ResetOptions();
+        CloseDialougeOptions();
+        curDialougeTree = null;
+    }
+
     public IEnumerator SetMessageOnMessageBoard(List<string> newText)
     {
-        foreach(string line in newText)
+        if (isDialougeOptionsOpen)
         {
-            Debug.Log(line);
+            CloseDialougeOptions();
+            StartCoroutine(UIManagerWait());
         }
-
+        
         CloseMessageBoard();
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
         OpenMessageBoard();
         messageBoard.SetNewText(newText);
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+    }
+
+    public IEnumerator SetMessageOnMessageBoard(DialougeTree dialougeTree)
+    {
+        curDialougeTree = dialougeTree;
+
+        if(!ReferenceEquals(curDialougeTree, null))
+        {
+            messageBoard.SetNewText(curDialougeTree.dialougeContent);
+        }
+
+
+        if (isDialougeOptionsOpen)
+        {
+            CloseDialougeOptions();
+            StartCoroutine(UIManagerWait());
+        }
+
+        CloseMessageBoard();
+
+        //yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+
+        OpenMessageBoard();
+        if (ReferenceEquals(dialougeTree, null))
+        {
+            List<string> defaultTalkTo = new List<string>();
+            defaultTalkTo.Add(Constants.DEFAULT_TALK_TO_MESSAGE);
+            messageBoard.SetNewText(defaultTalkTo);
+        }
+        yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+    }
+
+    public void OpenDialougeOptionDirectly()
+    {
+        CloseMessageBoard();
+        OpenDialougeOptions();
+
+        dialougeOptions.ResetOptions();
+
+        if (ReferenceEquals(curDialougeTree.dialougeOptions, null) || curDialougeTree.dialougeOptions.Count < 1) 
+        {
+            if (ReferenceEquals(curDialougeTree.parentNode, null))
+            {
+                CloseAndResetAllUIElements();
+                return;
+            }
+            curDialougeTree = curDialougeTree.parentNode;
+        }
+
+        foreach (DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
+        {
+            GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
+            newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<DialougeOptionButton>().Init(dialougeTree);
+        }
+
+        if (ReferenceEquals(curDialougeTree.parentNode, null))
+        {
+            GameObject newDialougeTreeOption = Instantiate(exitDialougeOptionPrefab);
+            newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+        }
+        else
+        {
+            GameObject newDialougeTreeOption = Instantiate(returnDialougeOptionPrefab);
+            newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<DialougeOptionButton>().SetOriginDialougeTree(curDialougeTree);
+        }
     }
 
     public IEnumerator ContinueMessageOnMessageBoard()
@@ -56,10 +158,17 @@ public class UI_Manager : MonoBehaviour
         {
             isInCooldown = true;
             yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+
             if (messageBoard.IsLastSentenceInText())
             {
                 messageBoard.ResetText();
                 CloseMessageBoard();
+
+                //check if has dialouge
+                if (curDialougeTree != null)
+                {
+                    OpenDialougeOptionDirectly();
+                }
             }
             else
             {
@@ -67,5 +176,16 @@ public class UI_Manager : MonoBehaviour
             }
             isInCooldown = false;
         }
+
+    }
+
+    public IEnumerator UIManagerWait()
+    {
+        if (!isInCooldown)
+        {
+            isInCooldown = true;
+            yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+        }
+        isInCooldown = false;
     }
 }
