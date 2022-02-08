@@ -16,7 +16,6 @@ public class DialougeOptionButton : MonoBehaviour
 
     public void TreeButton()
     {
-        //UI_Manager.instance.OpenMessageBoard();
         StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(myDialougeTree));
     }
 

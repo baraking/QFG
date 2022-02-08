@@ -69,6 +69,7 @@ public class UI_Manager : MonoBehaviour
         if (isDialougeOptionsOpen)
         {
             CloseDialougeOptions();
+            StartCoroutine(UIManagerWait());
         }
         
         CloseMessageBoard();
@@ -81,6 +82,9 @@ public class UI_Manager : MonoBehaviour
     public IEnumerator SetMessageOnMessageBoard(DialougeTree dialougeTree)
     {
         curDialougeTree = dialougeTree;
+
+        messageBoard.SetNewText(dialougeTree.dialougeContent);
+
         foreach (string line in dialougeTree.dialougeContent)
         {
             Debug.Log(line);
@@ -89,12 +93,15 @@ public class UI_Manager : MonoBehaviour
         if (isDialougeOptionsOpen)
         {
             CloseDialougeOptions();
+            StartCoroutine(UIManagerWait());
         }
 
         CloseMessageBoard();
-        yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+
+        //yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+
         OpenMessageBoard();
-        messageBoard.SetNewText(dialougeTree.dialougeContent);
+
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
     }
 
@@ -103,7 +110,7 @@ public class UI_Manager : MonoBehaviour
         if (!isInCooldown)
         {
             isInCooldown = true;
-            yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);    
+            yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
 
             if (messageBoard.IsLastSentenceInText())
             {
@@ -115,15 +122,15 @@ public class UI_Manager : MonoBehaviour
                 {
                     CloseMessageBoard();
                     OpenDialougeOptions();
-                    
-                    foreach(DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
+
+                    foreach (DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
                     {
                         GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
                         newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
                         newDialougeTreeOption.GetComponent<DialougeOptionButton>().Init(dialougeTree);
                     }
 
-                    if (curDialougeTree.parentNode == null)
+                    if (ReferenceEquals(curDialougeTree.parentNode , null))
                     {
                         //add Exit
                         print("Add Exit");
@@ -146,5 +153,16 @@ public class UI_Manager : MonoBehaviour
             }
             isInCooldown = false;
         }
+
+    }
+
+    public IEnumerator UIManagerWait()
+    {
+        if (!isInCooldown)
+        {
+            isInCooldown = true;
+            yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
+        }
+        isInCooldown = false;
     }
 }

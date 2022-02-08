@@ -127,7 +127,7 @@ public class MouseController : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && UI_Manager.instance.isMessageBoardOpen)
             {
                 StartCoroutine(UI_Manager.instance.ContinueMessageOnMessageBoard());
             }   
