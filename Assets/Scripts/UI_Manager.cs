@@ -124,6 +124,11 @@ public class UI_Manager : MonoBehaviour
 
         if (ReferenceEquals(curDialougeTree.dialougeOptions, null) || curDialougeTree.dialougeOptions.Count < 1) 
         {
+            if (ReferenceEquals(curDialougeTree.parentNode, null))
+            {
+                CloseAndResetAllUIElements();
+                return;
+            }
             curDialougeTree = curDialougeTree.parentNode;
         }
 

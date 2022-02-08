@@ -16,4 +16,4 @@ MonoBehaviour:
   dialougeContent:
   - Talking to yourself? Really?
   dialougeOptions: []
-  parentNode: {fileID: 11400000, guid: 9a5701f6dea94374386240239bb3ac01, type: 2}
+  parentNode: {fileID: 0}
