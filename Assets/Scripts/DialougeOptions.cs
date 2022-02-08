@@ -8,7 +8,6 @@ public class DialougeOptions : MonoBehaviour
 
     public void ResetOptions()
     {
-        Debug.Log("Deleting!");
         foreach (Transform child in dialougeOptionsHolder.transform)
         {
             GameObject.Destroy(child.gameObject);

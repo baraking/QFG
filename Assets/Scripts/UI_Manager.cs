@@ -122,6 +122,11 @@ public class UI_Manager : MonoBehaviour
 
         dialougeOptions.ResetOptions();
 
+        if (ReferenceEquals(curDialougeTree.dialougeOptions, null) || curDialougeTree.dialougeOptions.Count < 1) 
+        {
+            curDialougeTree = curDialougeTree.parentNode;
+        }
+
         foreach (DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
         {
             GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);

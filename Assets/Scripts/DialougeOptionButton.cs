@@ -26,10 +26,8 @@ public class DialougeOptionButton : MonoBehaviour
 
     public void ReturnButton()
     {
-        Debug.Log("Return to "+myDialougeTree.parentNode.dialgoueTitle);
         UI_Manager.instance.curDialougeTree = myDialougeTree.parentNode;
         UI_Manager.instance.OpenDialougeOptionDirectly();
-        //StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(myDialougeTree.parentNode));
     }
 
     public void ExitButton()
