@@ -115,6 +115,33 @@ public class UI_Manager : MonoBehaviour
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
     }
 
+    public void OpenDialougeOptionDirectly()
+    {
+        CloseMessageBoard();
+        OpenDialougeOptions();
+
+        dialougeOptions.ResetOptions();
+
+        foreach (DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
+        {
+            GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
+            newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<DialougeOptionButton>().Init(dialougeTree);
+        }
+
+        if (ReferenceEquals(curDialougeTree.parentNode, null))
+        {
+            GameObject newDialougeTreeOption = Instantiate(exitDialougeOptionPrefab);
+            newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+        }
+        else
+        {
+            GameObject newDialougeTreeOption = Instantiate(returnDialougeOptionPrefab);
+            newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<DialougeOptionButton>().SetOriginDialougeTree(curDialougeTree);
+        }
+    }
+
     public IEnumerator ContinueMessageOnMessageBoard()
     {
         if (!isInCooldown)
@@ -130,28 +157,7 @@ public class UI_Manager : MonoBehaviour
                 //check if has dialouge
                 if (curDialougeTree != null)
                 {
-                    CloseMessageBoard();
-                    OpenDialougeOptions();
-
-                    dialougeOptions.ResetOptions();
-
-                    foreach (DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
-                    {
-                        GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
-                        newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
-                        newDialougeTreeOption.GetComponent<DialougeOptionButton>().Init(dialougeTree);
-                    }
-
-                    if (ReferenceEquals(curDialougeTree.parentNode , null))
-                    {
-                        GameObject newDialougeTreeOption = Instantiate(exitDialougeOptionPrefab);
-                        newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
-                    }
-                    else
-                    {
-                        GameObject newDialougeTreeOption = Instantiate(returnDialougeOptionPrefab);
-                        newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
-                    }
+                    OpenDialougeOptionDirectly();
                 }
             }
             else

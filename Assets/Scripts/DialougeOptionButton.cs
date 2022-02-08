@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class DialougeOptionButton : MonoBehaviour
 {
-    DialougeTree myDialougeTree;
+    public DialougeTree myDialougeTree;
     public TMP_Text myDisplayedText;
 
     public void Init(DialougeTree newDialougeTree)
     {
         myDialougeTree = newDialougeTree;
         myDisplayedText.text = myDialougeTree.dialgoueTitle;
+    }
+
+    public void SetOriginDialougeTree(DialougeTree newDialougeTree)
+    {
+        myDialougeTree = newDialougeTree;
     }
 
     public void TreeButton()
@@ -21,7 +26,10 @@ public class DialougeOptionButton : MonoBehaviour
 
     public void ReturnButton()
     {
-        StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(myDialougeTree.parentNode));
+        Debug.Log("Return to "+myDialougeTree.parentNode.dialgoueTitle);
+        UI_Manager.instance.curDialougeTree = myDialougeTree.parentNode;
+        UI_Manager.instance.OpenDialougeOptionDirectly();
+        //StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(myDialougeTree.parentNode));
     }
 
     public void ExitButton()
