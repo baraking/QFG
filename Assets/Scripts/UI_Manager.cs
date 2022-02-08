@@ -10,6 +10,8 @@ public class UI_Manager : MonoBehaviour
     public MessageBoard messageBoard;
     public DialougeOptions dialougeOptions;
     public GameObject dialougeOptionPrefab;
+    public GameObject returnDialougeOptionPrefab;
+    public GameObject exitDialougeOptionPrefab;
 
     public DialougeTree curDialougeTree;
 
@@ -123,6 +125,8 @@ public class UI_Manager : MonoBehaviour
                     CloseMessageBoard();
                     OpenDialougeOptions();
 
+                    dialougeOptions.ResetOptions();
+
                     foreach (DialougeTree dialougeTree in curDialougeTree.dialougeOptions)
                     {
                         GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
@@ -132,13 +136,13 @@ public class UI_Manager : MonoBehaviour
 
                     if (ReferenceEquals(curDialougeTree.parentNode , null))
                     {
-                        //add Exit
-                        print("Add Exit");
+                        GameObject newDialougeTreeOption = Instantiate(exitDialougeOptionPrefab);
+                        newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
                     }
                     else
                     {
-                        //add Return
-                        print("Add Return");
+                        GameObject newDialougeTreeOption = Instantiate(returnDialougeOptionPrefab);
+                        newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
                     }
                 }
                 //if does
