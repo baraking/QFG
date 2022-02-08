@@ -21,11 +21,11 @@ public class DialougeOptionButton : MonoBehaviour
 
     public void ReturnButton()
     {
-
+        StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(myDialougeTree.parentNode));
     }
 
     public void ExitButton()
     {
-
+        UI_Manager.instance.CloseAndResetAllUIElements();
     }
 }

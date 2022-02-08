@@ -61,13 +61,17 @@ public class UI_Manager : MonoBehaviour
         isDialougeOptionsOpen = false;
     }
 
+    public void CloseAndResetAllUIElements()
+    {
+        messageBoard.ResetText();
+        CloseMessageBoard();
+        dialougeOptions.ResetOptions();
+        CloseDialougeOptions();
+        curDialougeTree = null;
+    }
+
     public IEnumerator SetMessageOnMessageBoard(List<string> newText)
     {
-        foreach (string line in newText)
-        {
-            Debug.Log(line);
-        }
-
         if (isDialougeOptionsOpen)
         {
             CloseDialougeOptions();
@@ -85,12 +89,11 @@ public class UI_Manager : MonoBehaviour
     {
         curDialougeTree = dialougeTree;
 
-        messageBoard.SetNewText(dialougeTree.dialougeContent);
-
-        foreach (string line in dialougeTree.dialougeContent)
+        if(!ReferenceEquals(curDialougeTree, null))
         {
-            Debug.Log(line);
+            messageBoard.SetNewText(curDialougeTree.dialougeContent);
         }
+
 
         if (isDialougeOptionsOpen)
         {
@@ -103,7 +106,12 @@ public class UI_Manager : MonoBehaviour
         //yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
 
         OpenMessageBoard();
-
+        if (ReferenceEquals(dialougeTree, null))
+        {
+            List<string> defaultTalkTo = new List<string>();
+            defaultTalkTo.Add(Constants.DEFAULT_TALK_TO_MESSAGE);
+            messageBoard.SetNewText(defaultTalkTo);
+        }
         yield return new WaitForSecondsRealtime(Constants.MESSAGE_BOARD_WAIT_TIME);
     }
 
@@ -145,11 +153,6 @@ public class UI_Manager : MonoBehaviour
                         newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
                     }
                 }
-                //if does
-                //open dialougeOptions
-                //for each dialougeTree in the list add dialgoueTitle's text as each button
-                //fill with all options
-                //if has parent add return, else add exit
             }
             else
             {

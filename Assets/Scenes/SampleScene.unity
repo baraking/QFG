@@ -930,6 +930,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTextDisplayer: {fileID: 1448089054}
+  currentText: []
+  currentTextIndex: 0
 --- !u!1 &1170161847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,7 +1145,7 @@ MonoBehaviour:
   - You are as handsome as ever.
   grab:
   - You check that everything is in place.
-  talkTo: {fileID: 0}
+  talkTo: {fileID: 11400000, guid: 449e06ac4ee77ad46a108586ea985d88, type: 2}
   lookAtDistance: 0
   grabDistance: 0
   talkToDistance: 0
@@ -1749,6 +1751,8 @@ MonoBehaviour:
   messageBoard: {fileID: 998891018}
   dialougeOptions: {fileID: 2142475809}
   dialougeOptionPrefab: {fileID: 7855506697233026586, guid: cb8c4c8f78329a0438e511a297e75b7b, type: 3}
+  returnDialougeOptionPrefab: {fileID: 7855506697233026586, guid: c77eb423dc68a5649a45697f02bd888d, type: 3}
+  exitDialougeOptionPrefab: {fileID: 7855506697233026586, guid: 1559d75edb1d81c46ab3917d5dfde2ea, type: 3}
   curDialougeTree: {fileID: 0}
   isMessageBoardOpen: 0
   isDialougeOptionsOpen: 0
