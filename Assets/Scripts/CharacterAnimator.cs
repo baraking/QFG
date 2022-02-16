@@ -19,10 +19,6 @@ public class CharacterAnimator : MonoBehaviour
 
     private void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("CastSpell") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1){
-            HeroActionsManager.instance.isCasting = false;
-            animator.SetBool("isCasting", HeroActionsManager.instance.isCasting);
-        }
         if (HeroActionsManager.instance.isCasting)
         {
             animator.enabled = false;
