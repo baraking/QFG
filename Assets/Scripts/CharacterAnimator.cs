@@ -19,7 +19,16 @@ public class CharacterAnimator : MonoBehaviour
 
     private void Update()
     {
-        float speedPercent = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
-        animator.SetFloat("speedPercent", speedPercent, locomationAnimationSmoothTime, Time.deltaTime);
+        float speedPercent;
+        float navMeshAgentVelocity = navMeshAgent.velocity.magnitude;
+        if (navMeshAgentVelocity < .1f) {
+            speedPercent = 0;
+        }
+        else {
+            speedPercent = navMeshAgentVelocity / navMeshAgent.speed;
+        }
+
+        //animator.SetFloat("speedPercent", speedPercent, locomationAnimationSmoothTime, Time.deltaTime);
+        animator.SetFloat("speedPercent", speedPercent);
     }
 }
