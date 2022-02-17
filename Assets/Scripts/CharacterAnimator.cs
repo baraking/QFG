@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 public class CharacterAnimator : MonoBehaviour
 {
@@ -11,10 +12,14 @@ public class CharacterAnimator : MonoBehaviour
     Animator animator;
     NavMeshAgent navMeshAgent;
 
+    public Rig rightHandRig;
+
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+
+        rightHandRig.weight = 0;
     }
 
     private void Update()
