@@ -40,6 +40,11 @@ public class MouseController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            HeroActionsManager.instance.isCasting = !HeroActionsManager.instance.isCasting;
+        }
+
         if (!EventSystem.current.IsPointerOverGameObject() && !UI_Manager.instance.IsUIManagerActive())
         {
             if (Input.GetMouseButtonDown(0))

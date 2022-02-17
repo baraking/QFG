@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.baseOffset = Constants.CHARACTER_HEIGHT / 2;
+        //navMeshAgent.baseOffset = Constants.CHARACTER_HEIGHT / 2;
     }
 
     public void WalkToPoint(Vector3 point)

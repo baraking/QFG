@@ -11,11 +11,11 @@ public class CameraController : MonoBehaviour
     public float characterHeight = Constants.CHARACTER_HEIGHT;
 
     public float zoomSpeed = 5f;
-    public Vector2 zoomPositionRange = new Vector2(5, 10);
+    public Vector2 zoomPositionRange;
 
     public float rotationSpeed = 100f;
 
-    private float currentZoom = 5f;
+    private float currentZoom = 3f;
     private float currentRotation = 0f;
 
     private void Update()
