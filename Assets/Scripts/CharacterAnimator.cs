@@ -20,12 +20,11 @@ public class CharacterAnimator : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         rightHandRig.weight = 0;
-        
     }
 
-    public void SetRightHandAimTarget(Transform targetTransform)
+    public void SetRightHandAimTarget(Transform targetsTransform)
     {
-        rightHandRig.GetComponent<TwoBoneIKConstraint>().data.target.position = targetTransform.position;
+        rightHandRig.GetComponent<TwoBoneIKConstraint>().data.target.position = targetsTransform.position;
     }
 
     public void ResetRightHandAimTarget()
