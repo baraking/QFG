@@ -7,6 +7,8 @@ public class UI_Manager : MonoBehaviour
 
     public static UI_Manager instance;
 
+    #region messages
+    [Header("Messages")]
     public MessageBoard messageBoard;
     public DialougeOptions dialougeOptions;
     public GameObject dialougeOptionPrefab;
@@ -19,6 +21,13 @@ public class UI_Manager : MonoBehaviour
     public bool isDialougeOptionsOpen;
 
     bool isInCooldown;
+    #endregion
+
+    #region inventory
+    [Header("Inventory")]
+    public GameObject inventory;
+    public bool isInventoryOpen;
+    #endregion
 
     public void Awake()
     {
@@ -177,6 +186,30 @@ public class UI_Manager : MonoBehaviour
             isInCooldown = false;
         }
 
+    }
+
+    public void ToggleInventory()
+    {
+        if (isInventoryOpen)
+        {
+            CloseInventory();
+        }
+        else
+        {
+            OpenInventory();
+        }
+    }
+
+    public void OpenInventory()
+    {
+        isInventoryOpen = true;
+        inventory.SetActive(true);
+    }
+
+    public void CloseInventory()
+    {
+        isInventoryOpen = false;
+        inventory.SetActive(false);
     }
 
     public IEnumerator UIManagerWait()
