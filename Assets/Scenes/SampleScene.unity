@@ -1469,6 +1469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory:
   - {fileID: 11400000, guid: 2835836928b89394e884063495a4f81b, type: 2}
+  moneyBag: {fileID: 11400000, guid: 2835836928b89394e884063495a4f81b, type: 2}
 --- !u!1 &1285817012
 GameObject:
   m_ObjectHideFlags: 0
