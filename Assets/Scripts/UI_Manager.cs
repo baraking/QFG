@@ -25,7 +25,9 @@ public class UI_Manager : MonoBehaviour
 
     #region inventory
     [Header("Inventory")]
-    public GameObject inventory;
+    public GameObject inventoryWindow;
+    public GameObject inventoryItemPrefab;
+    public GameObject inventoryGroupHolder;
     public bool isInventoryOpen;
     #endregion
 
@@ -145,6 +147,7 @@ public class UI_Manager : MonoBehaviour
         {
             GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
             newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             newDialougeTreeOption.GetComponent<DialougeOptionButton>().Init(dialougeTree);
         }
 
@@ -152,11 +155,13 @@ public class UI_Manager : MonoBehaviour
         {
             GameObject newDialougeTreeOption = Instantiate(exitDialougeOptionPrefab);
             newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
         else
         {
             GameObject newDialougeTreeOption = Instantiate(returnDialougeOptionPrefab);
             newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             newDialougeTreeOption.GetComponent<DialougeOptionButton>().SetOriginDialougeTree(curDialougeTree);
         }
     }
@@ -203,13 +208,34 @@ public class UI_Manager : MonoBehaviour
     public void OpenInventory()
     {
         isInventoryOpen = true;
-        inventory.SetActive(true);
+        inventoryWindow.SetActive(true);
+        SetupInventory();
     }
 
     public void CloseInventory()
     {
         isInventoryOpen = false;
-        inventory.SetActive(false);
+        inventoryWindow.SetActive(false);
+        ResetInventory();
+    }
+
+    public void SetupInventory()
+    {
+        foreach (Item item in Inventory.instance.inventory)
+        {
+            GameObject newInventoryItem = Instantiate(inventoryItemPrefab);
+            newInventoryItem.transform.SetParent(inventoryGroupHolder.transform);
+            newInventoryItem.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            newInventoryItem.GetComponent<InventoryItem>().Init(item);
+        }
+    }
+
+    public void ResetInventory()
+    {
+        foreach (Transform child in inventoryGroupHolder.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 
     public IEnumerator UIManagerWait()
