@@ -42,6 +42,8 @@ public class InventoryItem : MonoBehaviour
     public void OnSelectItem()
     {
         MouseController.instance.curItem = this;
+        MouseController.instance.curSpell = null;
+
         MouseController.instance.SetCurHeroAction((int)MouseController.HeroAction.UseItem);
     }
 

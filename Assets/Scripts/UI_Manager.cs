@@ -32,6 +32,14 @@ public class UI_Manager : MonoBehaviour
     public bool isInventoryOpen;
     #endregion
 
+    #region spells
+    [Header("Spells")]
+    public GameObject spellsWindow;
+    public GameObject spellIconPrefab;
+    public GameObject spellGroupHolder;
+    public bool isSpellsbookOpen;
+    #endregion
+
     public void Awake()
     {
         if (instance != null)

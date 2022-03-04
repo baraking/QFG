@@ -14,6 +14,7 @@ public class MouseController : MonoBehaviour
     public Texture2D[] heroActionIcons;
 
     public InventoryItem curItem;
+    public SpellHolder curSpell;
 
     Camera camera;
 
@@ -43,7 +44,7 @@ public class MouseController : MonoBehaviour
 
     public void SetCurHeroAction(int heroActionIndex)
     {
-        if (heroActionIndex == (int)HeroAction.UseItem && ReferenceEquals(curItem, null))
+        if (heroActionIndex == (int)HeroAction.UseItem && (ReferenceEquals(curItem, null)|| ReferenceEquals(curSpell, null)))
         {
             heroActionIndex++;
         }  
