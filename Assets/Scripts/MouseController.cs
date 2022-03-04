@@ -155,7 +155,11 @@ public class MouseController : MonoBehaviour
         }
         else if (UI_Manager.instance.isInventoryOpen)
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0) && UI_Manager.instance.isMessageBoardOpen)
+            {
+                StartCoroutine(UI_Manager.instance.ContinueMessageOnMessageBoard());
+            }
+            else if (Input.GetMouseButtonDown(1))
             {
                 SetCurHeroAction(curHeroActionIndex + 1);
             }

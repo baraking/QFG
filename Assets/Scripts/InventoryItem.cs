@@ -13,4 +13,17 @@ public class InventoryItem : MonoBehaviour
         item = newItem;
         myIcon.sprite = item.sprite;
     }
+
+    public void OnClick()
+    {
+        if (MouseController.instance.curHeroAction == MouseController.HeroAction.LookAt)
+        {
+            OnInspectItem();
+        }
+    }
+
+    public void OnInspectItem()
+    {
+        StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(item.itemDescription));
+    }
 }

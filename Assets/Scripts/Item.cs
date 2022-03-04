@@ -11,17 +11,4 @@ public class Item : ScriptableObject
     public GameObject inGameObject;
     public Sprite sprite;
     public List<string> itemDescription;
-
-    public void OnClick()
-    {
-        if (MouseController.instance.curHeroAction == MouseController.HeroAction.LookAt)
-        {
-            OnInspectItem();
-        }
-    }
-
-    public void OnInspectItem()
-    {
-        UI_Manager.instance.SetMessageOnMessageBoard(itemDescription);
-    }
 }
