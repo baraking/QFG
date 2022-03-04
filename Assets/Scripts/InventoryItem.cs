@@ -29,12 +29,24 @@ public class InventoryItem : MonoBehaviour
 
     public void OnInspectItem()
     {
-        StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(item.itemDescription));
+        List<string> description = new List<string>();
+        foreach(string str in item.itemDescription)
+        {
+            description.Add(str);
+        }
+        description[description.Count - 1] += QuanitiveDescription();
+
+        StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(description));
     }
 
     public void OnSelectItem()
     {
         MouseController.instance.curItem = this;
         MouseController.instance.SetCurHeroAction((int)MouseController.HeroAction.UseItem);
+    }
+
+    public string QuanitiveDescription()
+    {
+        return "You currntly have " + item.amount + " and it weighs " + (item.amount * item.weight);
     }
 }
