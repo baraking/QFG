@@ -92,9 +92,6 @@ public class UI_Manager : MonoBehaviour
 
     public IEnumerator SetMessageOnMessageBoard(List<string> newText)
     {
-        print("Got message:");
-        print(newText[0]);
-
         if (isDialougeOptionsOpen)
         {
             CloseDialougeOptions();

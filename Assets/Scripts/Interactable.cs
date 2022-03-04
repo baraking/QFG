@@ -16,6 +16,10 @@ public class Interactable : MonoBehaviour
     public List<Item> holdsItems;
     public bool shouldDisappearAfterItemsAreTaken;
 
+    //response to Item
+    //response to Spell
+    //condition to getItems
+
     public void Start()
     {
         if (lookAtDistance < 0)

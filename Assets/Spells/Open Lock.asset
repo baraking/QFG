@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: Open Lock
   sprite: {fileID: 21300000, guid: 07aa646745315734aab92ff0ca4fff01, type: 3}
+  isTargetRequired: 1
   spellDescription:
   - Open Lock

@@ -7,5 +7,6 @@ public class Spell : ScriptableObject
 {
     public string spellName;
     public Sprite sprite;
+    public bool isTargetRequired;
     public List<string> spellDescription;
 }
