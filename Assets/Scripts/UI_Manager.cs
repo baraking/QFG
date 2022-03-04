@@ -209,6 +209,7 @@ public class UI_Manager : MonoBehaviour
     {
         isInventoryOpen = true;
         inventoryWindow.SetActive(true);
+        MouseController.instance.SetCurHeroAction((int)MouseController.HeroAction.Grab);
         SetupInventory();
     }
 

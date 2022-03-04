@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(PlayerMovement))]
 public class MouseController : MonoBehaviour
 {
+    public static MouseController instance;
+
     public enum HeroAction { Walk,LookAt,Grab,TalkTo/*,UseItem*/}
     public HeroAction curHeroAction;
     public int curHeroActionIndex;
@@ -17,6 +19,18 @@ public class MouseController : MonoBehaviour
 
     public PlayerMovement movement;
 
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     private void Start()
     {
         camera = Camera.main;
@@ -25,12 +39,21 @@ public class MouseController : MonoBehaviour
         SetCurHeroAction((int)HeroAction.Walk);
     }
 
-    private void SetCurHeroAction(int heroActionIndex)
+    public void SetCurHeroAction(int heroActionIndex)
     {
         //if index = useItem && curItem == null
         //index++
 
-        curHeroActionIndex = heroActionIndex%System.Enum.GetValues(typeof(HeroAction)).Length;
+        if (UI_Manager.instance.isInventoryOpen)
+        {
+            while (heroActionIndex == (int)HeroAction.TalkTo || heroActionIndex == (int)HeroAction.Walk)
+            {
+                heroActionIndex++;
+                heroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
+            }
+        }
+
+        curHeroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
         curHeroAction = (HeroAction)curHeroActionIndex;
 
         Cursor.SetCursor(heroActionIcons[curHeroActionIndex], Vector2.zero, CursorMode.Auto);
@@ -129,6 +152,13 @@ public class MouseController : MonoBehaviour
                 SetCurHeroAction(curHeroActionIndex + 1);
             }
 
+        }
+        else if (UI_Manager.instance.isInventoryOpen)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                SetCurHeroAction(curHeroActionIndex + 1);
+            }
         }
         else
         {
