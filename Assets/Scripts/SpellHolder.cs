@@ -19,20 +19,20 @@ public class SpellHolder : MonoBehaviour
         MouseController.HeroAction curAction = MouseController.instance.curHeroAction;
         if (curAction == MouseController.HeroAction.LookAt)
         {
-            OnInspectItem();
+            OnInspectSpell();
         }
         else if (curAction == MouseController.HeroAction.Grab)
         {
-            OnSelectItem();
+            OnSelectSpell();
         }
     }
 
-    public void OnInspectItem()
+    public void OnInspectSpell()
     {
         StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(spell.spellDescription));
     }
 
-    public void OnSelectItem()
+    public void OnSelectSpell()
     {
         MouseController.instance.curSpell = this;
         MouseController.instance.curItem = null;

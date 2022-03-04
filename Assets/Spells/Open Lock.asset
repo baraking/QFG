@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ab6295185a2d0458b5adc9072635c8, type: 3}
-  m_Name: Spell 1
+  m_Name: Open Lock
   m_EditorClassIdentifier: 
-  spellName: Spell 1
-  sprite: {fileID: 21300000, guid: f9ab39550d8079343a8f4e9a3c0d108c, type: 3}
+  spellName: Open Lock
+  sprite: {fileID: 21300000, guid: 07aa646745315734aab92ff0ca4fff01, type: 3}
   spellDescription:
-  - The first Spell
+  - Open Lock

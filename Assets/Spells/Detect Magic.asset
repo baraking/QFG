@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ab6295185a2d0458b5adc9072635c8, type: 3}
-  m_Name: Spell 2
+  m_Name: Detect Magic
   m_EditorClassIdentifier: 
-  spellName: Spell 2
-  sprite: {fileID: 21300000, guid: 0c9ece67ba96ec54d914eb77cb41e284, type: 3}
+  spellName: Detect Magic
+  sprite: {fileID: 21300000, guid: 80e1291fc965ee74891a65b00dcccda8, type: 3}
   spellDescription:
-  - The second Spell
+  - Detect Magic

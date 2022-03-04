@@ -44,14 +44,14 @@ public class MouseController : MonoBehaviour
 
     public void SetCurHeroAction(int heroActionIndex)
     {
-        if (heroActionIndex == (int)HeroAction.UseItem && (ReferenceEquals(curItem, null)|| ReferenceEquals(curSpell, null)))
+        if (heroActionIndex == (int)HeroAction.UseItem && (ReferenceEquals(curItem, null) && ReferenceEquals(curSpell, null)))
         {
             heroActionIndex++;
         }  
 
-        if (UI_Manager.instance.isInventoryOpen)
+        if (UI_Manager.instance.isInventoryOpen || UI_Manager.instance.isSpellsBookOpen)
         {
-            while (heroActionIndex == (int)HeroAction.TalkTo || heroActionIndex == (int)HeroAction.Walk || (heroActionIndex == (int)HeroAction.UseItem && ReferenceEquals(curItem, null)))
+            while (heroActionIndex == (int)HeroAction.TalkTo || heroActionIndex == (int)HeroAction.Walk || (heroActionIndex == (int)HeroAction.UseItem && (ReferenceEquals(curItem, null) && ReferenceEquals(curSpell, null))))
             {
                 heroActionIndex++;
                 heroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
@@ -67,8 +67,16 @@ public class MouseController : MonoBehaviour
         }
         else
         {
-            Cursor.SetCursor(curItem.myIcon.sprite.texture, Vector2.zero, CursorMode.Auto);
-            print("Put icon for " + curItem.item.name);
+            if(!ReferenceEquals(curItem, null))
+            {
+                Cursor.SetCursor(curItem.myIcon.sprite.texture, Vector2.zero, CursorMode.Auto);
+                print("Put icon for " + curItem.item.name);
+            }
+            else if (!ReferenceEquals(curSpell, null))
+            {
+                Cursor.SetCursor(curSpell.myIcon.sprite.texture, Vector2.zero, CursorMode.Auto);
+                print("Put icon for " + curSpell.spell.name);
+            }
         }
 
         Debug.Log("Action is " + curHeroAction.ToString());
@@ -185,7 +193,7 @@ public class MouseController : MonoBehaviour
             }
 
         }
-        else if (UI_Manager.instance.isInventoryOpen)
+        else if (UI_Manager.instance.isInventoryOpen || UI_Manager.instance.isSpellsBookOpen)
         {
             if (Input.GetMouseButtonDown(0) && UI_Manager.instance.isMessageBoardOpen)
             {
