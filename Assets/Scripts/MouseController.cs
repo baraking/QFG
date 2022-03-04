@@ -8,10 +8,12 @@ public class MouseController : MonoBehaviour
 {
     public static MouseController instance;
 
-    public enum HeroAction { Walk,LookAt,Grab,TalkTo/*,UseItem*/}
+    public enum HeroAction { Walk,LookAt,Grab,TalkTo,UseItem}
     public HeroAction curHeroAction;
     public int curHeroActionIndex;
     public Texture2D[] heroActionIcons;
+
+    public InventoryItem curItem;
 
     Camera camera;
 
@@ -41,12 +43,14 @@ public class MouseController : MonoBehaviour
 
     public void SetCurHeroAction(int heroActionIndex)
     {
-        //if index = useItem && curItem == null
-        //index++
+        if (heroActionIndex == (int)HeroAction.UseItem && ReferenceEquals(curItem, null))
+        {
+            heroActionIndex++;
+        }  
 
         if (UI_Manager.instance.isInventoryOpen)
         {
-            while (heroActionIndex == (int)HeroAction.TalkTo || heroActionIndex == (int)HeroAction.Walk)
+            while (heroActionIndex == (int)HeroAction.TalkTo || heroActionIndex == (int)HeroAction.Walk || (heroActionIndex == (int)HeroAction.UseItem && ReferenceEquals(curItem, null)))
             {
                 heroActionIndex++;
                 heroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
@@ -56,7 +60,15 @@ public class MouseController : MonoBehaviour
         curHeroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
         curHeroAction = (HeroAction)curHeroActionIndex;
 
-        Cursor.SetCursor(heroActionIcons[curHeroActionIndex], Vector2.zero, CursorMode.Auto);
+        if (curHeroAction != HeroAction.UseItem)
+        {
+            Cursor.SetCursor(heroActionIcons[curHeroActionIndex], Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            Cursor.SetCursor(curItem.myIcon.sprite.texture, Vector2.zero, CursorMode.Auto);
+            print("Put icon for " + curItem.item.name);
+        }
 
         Debug.Log("Action is " + curHeroAction.ToString());
     }

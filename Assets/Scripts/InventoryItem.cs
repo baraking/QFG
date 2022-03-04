@@ -16,14 +16,25 @@ public class InventoryItem : MonoBehaviour
 
     public void OnClick()
     {
-        if (MouseController.instance.curHeroAction == MouseController.HeroAction.LookAt)
+        MouseController.HeroAction curAction = MouseController.instance.curHeroAction;
+        if (curAction == MouseController.HeroAction.LookAt)
         {
             OnInspectItem();
+        }
+        else if (curAction == MouseController.HeroAction.Grab)
+        {
+            OnSelectItem();
         }
     }
 
     public void OnInspectItem()
     {
         StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(item.itemDescription));
+    }
+
+    public void OnSelectItem()
+    {
+        MouseController.instance.curItem = this;
+        MouseController.instance.SetCurHeroAction((int)MouseController.HeroAction.UseItem);
     }
 }
