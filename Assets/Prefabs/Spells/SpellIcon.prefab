@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8028069654989569487}
   - component: {fileID: 8544354066394613893}
   - component: {fileID: -1296865504589334623}
-  - component: {fileID: 1940846562323910838}
   - component: {fileID: -6111291354825945668}
   m_Layer: 0
   m_Name: SpellIcon
@@ -90,19 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984c82303d9e783479979f155c9b68a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1940846562323910838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2356711836391774148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48d6dc3b08c9d7a45b0ed14cc55cd3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  spell: {fileID: 0}
   myIcon: {fileID: 8544354066394613893}
 --- !u!114 &-6111291354825945668
 MonoBehaviour:
@@ -148,8 +135,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1940846562323910838}
-        m_TargetAssemblyTypeName: InventoryItem, Assembly-CSharp
+      - m_Target: {fileID: -1296865504589334623}
+        m_TargetAssemblyTypeName: SpellHolder, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:

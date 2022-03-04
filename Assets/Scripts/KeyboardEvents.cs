@@ -10,5 +10,10 @@ public class KeyboardEvents : MonoBehaviour
         {
             UI_Manager.instance.ToggleInventory();
         }
+
+        if (Event.current.Equals(Event.KeyboardEvent("b")))
+        {
+            UI_Manager.instance.ToggleSpellsBook();
+        }
     }
 }

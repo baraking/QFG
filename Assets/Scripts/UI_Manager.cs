@@ -34,10 +34,10 @@ public class UI_Manager : MonoBehaviour
 
     #region spells
     [Header("Spells")]
-    public GameObject spellsWindow;
+    public GameObject spellsBookWindow;
     public GameObject spellIconPrefab;
     public GameObject spellGroupHolder;
-    public bool isSpellsbookOpen;
+    public bool isSpellsBookOpen;
     #endregion
 
     public void Awake()
@@ -246,6 +246,52 @@ public class UI_Manager : MonoBehaviour
     public void ResetInventory()
     {
         foreach (Transform child in inventoryGroupHolder.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    public void ToggleSpellsBook()
+    {
+        if (isSpellsBookOpen)
+        {
+            CloseSpellsBook();
+        }
+        else
+        {
+            OpenSpellsBook();
+        }
+    }
+
+    public void OpenSpellsBook()
+    {
+        isSpellsBookOpen = true;
+        spellsBookWindow.SetActive(true);
+        MouseController.instance.SetCurHeroAction((int)MouseController.HeroAction.Grab);
+        SetupSpellsBook();
+    }
+
+    public void CloseSpellsBook()
+    {
+        isSpellsBookOpen = false;
+        spellsBookWindow.SetActive(false);
+        ResetSpellsBook();
+    }
+
+    public void SetupSpellsBook()
+    {
+        foreach (Spell spell in SpellsBook.instance.spells)
+        {
+            GameObject newSpell = Instantiate(spellIconPrefab);
+            newSpell.transform.SetParent(spellGroupHolder.transform);
+            newSpell.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            newSpell.GetComponent<SpellHolder>().Init(spell);
+        }
+    }
+
+    public void ResetSpellsBook()
+    {
+        foreach (Transform child in spellGroupHolder.transform)
         {
             GameObject.Destroy(child.gameObject);
         }
