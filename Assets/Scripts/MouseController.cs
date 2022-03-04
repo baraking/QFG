@@ -158,6 +158,25 @@ public class MouseController : MonoBehaviour
                         }
                     }
                 }
+                else if (curHeroAction == HeroAction.UseItem)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                        {
+                            Debug.Log("Use item on that");
+                            /*if (Vector3.Distance(transform.position, hit.collider.ClosestPointOnBounds(transform.position)) <= hit.collider.gameObject.GetComponentInParent<Interactable>().talkToDistance)
+                            {
+                                StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()));
+                            }
+                            else
+                            {
+                                Debug.Log("I'm too far for that");
+                                movement.WalkToPoint(hit.point);
+                            }*/
+                        }
+                    }
+                }
             }
             else if (Input.GetMouseButtonDown(1))
             {
