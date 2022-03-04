@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
 
     public static UI_Manager instance;
 
+    #region messages
+    [Header("Messages")]
     public MessageBoard messageBoard;
     public DialougeOptions dialougeOptions;
     public GameObject dialougeOptionPrefab;
@@ -19,6 +22,15 @@ public class UI_Manager : MonoBehaviour
     public bool isDialougeOptionsOpen;
 
     bool isInCooldown;
+    #endregion
+
+    #region inventory
+    [Header("Inventory")]
+    public GameObject inventoryWindow;
+    public GameObject inventoryItemPrefab;
+    public GameObject inventoryGroupHolder;
+    public bool isInventoryOpen;
+    #endregion
 
     public void Awake()
     {
@@ -72,6 +84,9 @@ public class UI_Manager : MonoBehaviour
 
     public IEnumerator SetMessageOnMessageBoard(List<string> newText)
     {
+        print("Got message:");
+        print(newText[0]);
+
         if (isDialougeOptionsOpen)
         {
             CloseDialougeOptions();
@@ -136,6 +151,7 @@ public class UI_Manager : MonoBehaviour
         {
             GameObject newDialougeTreeOption = Instantiate(dialougeOptionPrefab);
             newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             newDialougeTreeOption.GetComponent<DialougeOptionButton>().Init(dialougeTree);
         }
 
@@ -143,11 +159,13 @@ public class UI_Manager : MonoBehaviour
         {
             GameObject newDialougeTreeOption = Instantiate(exitDialougeOptionPrefab);
             newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
         else
         {
             GameObject newDialougeTreeOption = Instantiate(returnDialougeOptionPrefab);
             newDialougeTreeOption.transform.SetParent(dialougeOptions.dialougeOptionsHolder.transform);
+            newDialougeTreeOption.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             newDialougeTreeOption.GetComponent<DialougeOptionButton>().SetOriginDialougeTree(curDialougeTree);
         }
     }
@@ -177,6 +195,57 @@ public class UI_Manager : MonoBehaviour
             isInCooldown = false;
         }
 
+    }
+
+    public void ToggleInventory()
+    {
+        if (isInventoryOpen)
+        {
+            CloseInventory();
+        }
+        else
+        {
+            OpenInventory();
+        }
+    }
+
+    public void OpenInventory()
+    {
+        isInventoryOpen = true;
+        inventoryWindow.SetActive(true);
+        MouseController.instance.SetCurHeroAction((int)MouseController.HeroAction.Grab);
+        SetupInventory();
+    }
+
+    public void CloseInventory()
+    {
+        isInventoryOpen = false;
+        inventoryWindow.SetActive(false);
+        ResetInventory();
+    }
+
+    public void SetupInventory()
+    {
+        foreach (Item item in Inventory.instance.inventory)
+        {
+            GameObject newInventoryItem = Instantiate(inventoryItemPrefab);
+            newInventoryItem.transform.SetParent(inventoryGroupHolder.transform);
+            newInventoryItem.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            newInventoryItem.GetComponent<InventoryItem>().Init(item);
+        }
+    }
+
+    public void ResetInventory()
+    {
+        foreach (Transform child in inventoryGroupHolder.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    public void InspectItem(Item item)
+    {
+        StartCoroutine(SetMessageOnMessageBoard(item.itemDescription));
     }
 
     public IEnumerator UIManagerWait()

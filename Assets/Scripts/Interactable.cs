@@ -13,6 +13,9 @@ public class Interactable : MonoBehaviour
     public float grabDistance;
     public float talkToDistance;
 
+    public List<Item> holdsItems;
+    public bool shouldDisappearAfterItemsAreTaken;
+
     public void Start()
     {
         if (lookAtDistance < 0)
@@ -49,6 +52,13 @@ public class Interactable : MonoBehaviour
     {
         if (grab != null && grab.Count > 0)
         {
+            for (int i = holdsItems.Count; i > 0; i--)
+            {
+                print(holdsItems[i-1].itemName);
+                Inventory.instance.inventory.Add(holdsItems[i-1]);
+                holdsItems.RemoveAt(i-1);
+            }
+            Invoke("OnTakenAllItems", Constants.MESSAGE_BOARD_WAIT_TIME);
             return grab;
         }
         else
@@ -68,6 +78,14 @@ public class Interactable : MonoBehaviour
         else
         {
             return null;
+        }
+    }
+
+    public void OnTakenAllItems()
+    {
+        if (holdsItems.Count < 1 && shouldDisappearAfterItemsAreTaken)
+        {
+            Destroy(gameObject);
         }
     }
 

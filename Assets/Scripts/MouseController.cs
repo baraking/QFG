@@ -6,16 +6,32 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(PlayerMovement))]
 public class MouseController : MonoBehaviour
 {
-    public enum HeroAction { Walk,LookAt,Grab,TalkTo/*,UseItem*/}
+    public static MouseController instance;
+
+    public enum HeroAction { Walk,LookAt,Grab,TalkTo,UseItem}
     public HeroAction curHeroAction;
     public int curHeroActionIndex;
     public Texture2D[] heroActionIcons;
+
+    public InventoryItem curItem;
 
     Camera camera;
 
     public LayerMask movementMask;
 
     public PlayerMovement movement;
+
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -25,15 +41,34 @@ public class MouseController : MonoBehaviour
         SetCurHeroAction((int)HeroAction.Walk);
     }
 
-    private void SetCurHeroAction(int heroActionIndex)
+    public void SetCurHeroAction(int heroActionIndex)
     {
-        //if index = useItem && curItem == null
-        //index++
+        if (heroActionIndex == (int)HeroAction.UseItem && ReferenceEquals(curItem, null))
+        {
+            heroActionIndex++;
+        }  
 
-        curHeroActionIndex = heroActionIndex%System.Enum.GetValues(typeof(HeroAction)).Length;
+        if (UI_Manager.instance.isInventoryOpen)
+        {
+            while (heroActionIndex == (int)HeroAction.TalkTo || heroActionIndex == (int)HeroAction.Walk || (heroActionIndex == (int)HeroAction.UseItem && ReferenceEquals(curItem, null)))
+            {
+                heroActionIndex++;
+                heroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
+            }
+        }
+
+        curHeroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
         curHeroAction = (HeroAction)curHeroActionIndex;
 
-        Cursor.SetCursor(heroActionIcons[curHeroActionIndex], Vector2.zero, CursorMode.Auto);
+        if (curHeroAction != HeroAction.UseItem)
+        {
+            Cursor.SetCursor(heroActionIcons[curHeroActionIndex], Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            Cursor.SetCursor(curItem.myIcon.sprite.texture, Vector2.zero, CursorMode.Auto);
+            print("Put icon for " + curItem.item.name);
+        }
 
         Debug.Log("Action is " + curHeroAction.ToString());
     }
@@ -123,12 +158,42 @@ public class MouseController : MonoBehaviour
                         }
                     }
                 }
+                else if (curHeroAction == HeroAction.UseItem)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (hit.collider.gameObject.GetComponentInParent<Interactable>())
+                        {
+                            Debug.Log("Use item on that");
+                            /*if (Vector3.Distance(transform.position, hit.collider.ClosestPointOnBounds(transform.position)) <= hit.collider.gameObject.GetComponentInParent<Interactable>().talkToDistance)
+                            {
+                                StartCoroutine(UI_Manager.instance.SetMessageOnMessageBoard(hit.collider.gameObject.GetComponentInParent<Interactable>().TalkToThis()));
+                            }
+                            else
+                            {
+                                Debug.Log("I'm too far for that");
+                                movement.WalkToPoint(hit.point);
+                            }*/
+                        }
+                    }
+                }
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 SetCurHeroAction(curHeroActionIndex + 1);
             }
 
+        }
+        else if (UI_Manager.instance.isInventoryOpen)
+        {
+            if (Input.GetMouseButtonDown(0) && UI_Manager.instance.isMessageBoardOpen)
+            {
+                StartCoroutine(UI_Manager.instance.ContinueMessageOnMessageBoard());
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                SetCurHeroAction(curHeroActionIndex + 1);
+            }
         }
         else
         {
