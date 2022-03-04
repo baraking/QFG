@@ -44,6 +44,7 @@ public class MouseController : MonoBehaviour
 
     public void SetCurHeroAction(int heroActionIndex)
     {
+        heroActionIndex = heroActionIndex % System.Enum.GetValues(typeof(HeroAction)).Length;
         if (heroActionIndex == (int)HeroAction.UseItem && (ReferenceEquals(curItem, null) && ReferenceEquals(curSpell, null)))
         {
             heroActionIndex++;
