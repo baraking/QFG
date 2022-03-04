@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -228,6 +229,8 @@ public class UI_Manager : MonoBehaviour
             newInventoryItem.transform.SetParent(inventoryGroupHolder.transform);
             newInventoryItem.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             newInventoryItem.GetComponent<InventoryItem>().Init(item);
+
+            newInventoryItem.GetComponent<Button>().onClick.AddListener(newInventoryItem.GetComponent<Item>().OnClick);
         }
     }
 
@@ -237,6 +240,11 @@ public class UI_Manager : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+    }
+
+    public void InspectItem(Item item)
+    {
+        StartCoroutine(SetMessageOnMessageBoard(item.itemDescription));
     }
 
     public IEnumerator UIManagerWait()
